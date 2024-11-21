@@ -1,0 +1,21 @@
+GET http://localhost:8000 HTTP/1.1
+
+###
+
+GET http://localhost:8000/items/4 HTTP/1.1
+
+###
+
+GET http://localhost:8000/items/4?q=hello HTTP/1.1
+
+###
+
+PUT http://localhost:8000/items/1 HTTP/1.1
+
+{
+    "name": "Item-One",
+    "price": "120",
+    "is_offer": true
+}
+
+###
