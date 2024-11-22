@@ -6,6 +6,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi[standard]>=0.115.5",
-    "ruff>=0.7.4",
     "scalar-fastapi>=1.0.3",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.7.4",
 ]
