@@ -13,24 +13,35 @@ class Item(BaseModel):
     is_offer: Union[bool, None] = None
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
+# Expose Scalar API client at `/scalar`
 @app.get("/scalar", include_in_schema=False)
 async def scalar_html():
     return get_scalar_api_reference(
-        openapi_url=app.openapi_url,
+        openapi_url=app.openapi_url,  # type: ignore # required: str, is: str | None
         title=app.title,
     )
 
 
+@app.get("/")
+async def read_root():
+    return {"message": "Hello World"}
+
+
 @app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+async def read_item(item_id: int):
+    return {"item_id": item_id}
 
 
 @app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
+async def update_item(item_id: int, item: Item):
     return {"item_name": item.name, "item_id": item_id}
+
+
+@app.get("/users/me")
+async def get_user_me():
+    return {"user_id": "Current user"}
+
+
+@app.get("/users/{user_id}")
+async def get_user(user_id: str):
+    return {"user_id": user_id}
