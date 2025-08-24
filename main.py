@@ -2,7 +2,7 @@ from typing import Union
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from scalar_fastapi import get_scalar_api_reference
+from scalar_fastapi.scalar_fastapi import get_scalar_api_reference
 
 app = FastAPI()
 
@@ -17,8 +17,10 @@ class Item(BaseModel):
 @app.get("/scalar", include_in_schema=False)
 async def scalar_html():
     return get_scalar_api_reference(
-        openapi_url=app.openapi_url,  # type: ignore # required: str, is: str | None
+        openapi_url=app.openapi_url,  # type: ignore
         title=app.title,
+        hide_client_button=True,
+        hide_models=True,
     )
 
 
